@@ -18,7 +18,7 @@ class GameService {
 				.orElseThrow(() -> new RuntimeException("nie znaleziono hasła"));
 		newGame.setPassword(password.getPassword().toUpperCase());
 		newGame.setCategory(password.getCategory().toUpperCase());
-		newGame.setObscuredPassword(newGame.getPassword().replaceAll(".", "-"));
+		newGame.setObscuredPassword(newGame.getPassword().replaceAll("[A-ZĄĆĘŁŃÓŚŹŻ]", "-").replaceAll("[a-ząćęłńóśźż]", "-"));
 		newGame.setWrongGuesses(0);
 		return gameRepository.save(newGame);
 	}
@@ -51,10 +51,13 @@ class GameService {
 			game.setWrongGuesses(game.getWrongGuesses() + 1);
 		}
 
+		boolean gameWon = !newObscuredPassword.toString().contains("-");
+
 		return GuessLetterResponse.builder()
 				.password(newObscuredPassword.toString())
 				.category(game.getCategory())
 				.wrongGuesses(game.getWrongGuesses())
+				.gameWon(gameWon)
 				.build();
 	}
 

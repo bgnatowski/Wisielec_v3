@@ -1,5 +1,43 @@
 /* keyboard.component.css */
-.keyboard .btn {
-  margin: 2px;
-  /* Inne style dla przycisków */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(255, 255, 255, 0.7); /* Adjust the transparency as needed */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.mat-button-base {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  background: linear-gradient(145deg, #f6f6f6, #eeeeee);
+  box-shadow: 3px 3px 6px #b8b8b8, -3px -3px 6px #ffffff;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  text-transform: none; /* Prevents capitalization of letters */
+}
+
+.mat-button-base:hover {
+  background: linear-gradient(145deg, #e6e6e6, #dcdcdc);
+}
+
+/* Ensure these classes have !important to override Material styles if necessary */
+.good-guess {
+  background-color: #4caf50 !important; /* Green for correct guesses */
+  color: #fff !important;
+}
+
+.wrong-guess {
+  background-color: #f44336 !important; /* Red for wrong guesses */
+  color: #fff !important;
 }

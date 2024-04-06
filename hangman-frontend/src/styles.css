@@ -13,3 +13,6 @@
   width: 50px; /* Dostosuj szerokość nakładki do preferowanego rozmiaru */
   height: 50px; /* Dostosuj wysokość nakładki do preferowanego rozmiaru */
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

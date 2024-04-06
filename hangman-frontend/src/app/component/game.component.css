@@ -1,5 +1,33 @@
 /* game.component.css */
-.category, .password {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+.category,
+.password {
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+  color: black;
+  text-shadow:
+    -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white; /* Creates the outline effect */
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  margin: 10px auto; /* Centering horizontally */
+  border-radius: 10px; /* Rounded corners */
+  max-width: 80%; /* Adjust width accordingly */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow for depth */
+  font-size: 1.5em; /* Larger text size */
+}
+
+.game-image {
+  display: flex;
+  max-width: 80%; /* Adjust the width of the image as required */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 20px; /* Space between the image and the keyboard */
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* This will center the children (the image and keyboard) horizontally */
+  justify-content: center; /* This will center the children vertically if the container has a specified height */
 }

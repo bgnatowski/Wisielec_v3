@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Game} from "../interface/game";
 import {GuessLetterResponse} from "../interface/guess-letter-response"; // Załóżmy, że mamy plik środowiskowy
 
@@ -8,59 +8,46 @@ import {GuessLetterResponse} from "../interface/guess-letter-response"; // Zał�
   providedIn: 'root'
 })
 export class GameService {
-  private obscuredPasswordSubject = new BehaviorSubject<string>('');
-  private categorySubject = new BehaviorSubject<string>('');
-  private gameStateChanged = new BehaviorSubject<{ hasWon: boolean; isGameOver: boolean }>({ hasWon: false, isGameOver: false });
-  private wrongGuessesSubject = new BehaviorSubject<number>(0);
+  private apiUrl = 'http://localhost:8080/api/games/hangman';
 
-  wrongGuessesChanged = this.wrongGuessesSubject.asObservable();
-  hasWon: boolean = false;
-  isGameOver: boolean = false;
-  apiUrl = 'http://localhost:8080/api/games/hangman';
-  private MAX_WRONG_GUESSES: number = 8;
+  private obscuredPasswordSubject = new BehaviorSubject<string>('');
+  private wrongGuessesSubject = new BehaviorSubject<number>(0);
+  private gameImageSubject = new BehaviorSubject<string>("assets/s0.jpg");
+
+  private gameEndedSubject = new Subject<boolean>();
+  public gameImage$ = this.gameImageSubject.asObservable();
+  public gameEnded$ = this.gameEndedSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
   startNewGame(): Observable<Game> {
-    console.log("Starting new game");
+    // console.log("Starting new game");
     return this.http.post<Game>(`${this.apiUrl}/start`, {});
   }
 
-  guessLetter(gameId: number, letter: string): void {
+  guessLetter(gameId: number, letter: string): Observable<GuessLetterResponse> {
+    // console.log("Guessing letter: " + letter + " for gameId: " + gameId);
     const guessLetterRequest = { letter: letter };
-    this.http.post<GuessLetterResponse>(`${this.apiUrl}/${gameId}/guess/letter`, guessLetterRequest)
-      .subscribe(response => {
-        this.obscuredPasswordSubject.next(response.obscuredPassword);
-        this.categorySubject.next(response.category);
-        this.wrongGuessesSubject.next(response.wrongGuesses);
-        this.hasWon = !response.obscuredPassword.includes('-');
-        this.isGameOver = response.wrongGuesses >= this.MAX_WRONG_GUESSES;
-        this.gameStateChanged.next({ hasWon: this.hasWon, isGameOver: this.isGameOver });
-      }, error => {
-        console.error('An error occurred while guessing a letter:', error);
-        // Tutaj można obsłużyć błąd, np. wyświetlając alert dla użytkownika.
-      });
-  }
-
-  guessPassword(gameId: number, password: string): Observable<boolean> {
-    const passwordRequest = { password: password };
-    return this.http.post<boolean>(`${this.apiUrl}/${gameId}/guess/password`, passwordRequest);
-  }
-
-
-  getObscuredPassword(gameId: number): Observable<string> {
-    return this.http.get<string>(`${this.apiUrl}/api/games/hangman/${gameId}`);
+    return this.http.post<GuessLetterResponse>(`${this.apiUrl}/${gameId}/guess/letter`, guessLetterRequest);
   }
 
   get obscuredPassword$(): Observable<string> {
     return this.obscuredPasswordSubject.asObservable();
   }
 
-  get category$(): Observable<string> {
-    return this.categorySubject.asObservable();
+  updateObscuredPassword(obscuredPassword: string): void {
+    this.obscuredPasswordSubject.next(obscuredPassword);
   }
 
-  get gameStateChanged$(): Observable<{ hasWon: boolean; isGameOver: boolean }> {
-    return this.gameStateChanged.asObservable();
+  updateWrongGuesses(wrongGuesses: number): void {
+    this.wrongGuessesSubject.next(wrongGuesses);
+  }
+
+  updateImage(imageSrc: string): void {
+    this.gameImageSubject.next(imageSrc);
+  }
+
+  endGame() {
+    this.gameEndedSubject.next(true);
   }
 }

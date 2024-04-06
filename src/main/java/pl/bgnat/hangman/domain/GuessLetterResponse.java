@@ -6,6 +6,7 @@ import lombok.Builder;
 public record GuessLetterResponse(
 		String category,
 		String password,
-		int wrongGuesses
+		int wrongGuesses,
+		boolean gameWon
 ) {
 }

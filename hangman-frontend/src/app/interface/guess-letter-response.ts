@@ -1,5 +1,6 @@
 export interface GuessLetterResponse {
   category: string,
-  obscuredPassword: string,
-  wrongGuesses: number
+  password: string,
+  wrongGuesses: number,
+  gameWon: boolean
 }

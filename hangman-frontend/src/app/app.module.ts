@@ -9,12 +9,14 @@ import { KeyboardComponent } from './keyboard/keyboard.component';
 import {RouterModule} from "@angular/router";
 import {GameComponent} from "./component/game.component";
 import {AppRoutingModule} from "./app.routing.module";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
     AppComponent,
     KeyboardComponent,
-    GameComponent
+    GameComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,8 @@ import {AppRoutingModule} from "./app.routing.module";
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

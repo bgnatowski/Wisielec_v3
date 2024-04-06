@@ -1,1 +1,13 @@
-<p>keyboard works!</p>
+<div class="keyboard">
+  <div *ngFor="let row of keyRows" class="keyboard-row">
+    <button mat-raised-button
+            *ngFor="let letter of row"
+            [class.good-guess]="guessedLetters[letter] === 'good-guess'"
+            [class.wrong-guess]="guessedLetters[letter] === 'wrong-guess'"
+            [disabled]="guessedLetters[letter] || gameEnded"
+            (click)="makeGuess(letter)">
+      {{ letter }}
+    </button>
+  </div>
+</div>
+
