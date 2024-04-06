@@ -1,0 +1,6 @@
+<!-- game.component.html -->
+
+<app-keyboard [gameId]="game?.id"></app-keyboard> <!-- Przekazujemy ID gry do komponentu klawiatury -->
+<div class="category">{{ game?.category }}</div>
+<div class="password">{{ game?.obscuredPassword }}</div>
+<img [src]="imageSrc" alt="Hangman">

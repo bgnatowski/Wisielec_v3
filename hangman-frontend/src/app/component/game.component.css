@@ -1,0 +1,5 @@
+/* game.component.css */
+.category, .password {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}

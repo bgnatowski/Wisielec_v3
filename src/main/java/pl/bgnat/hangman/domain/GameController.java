@@ -3,8 +3,7 @@ package pl.bgnat.hangman.domain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/games/hangman")
 @RequiredArgsConstructor
@@ -30,6 +29,4 @@ class GameController {
 	public String getObscuredPassword(@PathVariable Long gameId){
 		return gameService.getObscuredPassword(gameId);
 	}
-
-
 }
