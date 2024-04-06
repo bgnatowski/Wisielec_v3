@@ -10,7 +10,7 @@
     </parent>
     <groupId>pl.bgnat</groupId>
     <artifactId>hangman</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>3</version>
     <name>hangman</name>
     <description>hangman</description>
     <properties>
