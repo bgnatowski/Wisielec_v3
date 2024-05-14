@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: backend-hangman
+    image: bgnatowski/hangman:v3-win # v3-win  lub v3-mac
+    ports:
+      - "8080:8080"
+    restart: "on-failure"
+  frontend:
+    container_name: frontend-hangman
+    image: bgnatowski/hangman-frontend:v3-win # v3-win  lub v3-mac
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    restart: "on-failure"
