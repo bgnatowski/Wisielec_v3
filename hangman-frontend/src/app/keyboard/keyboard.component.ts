@@ -37,7 +37,7 @@ export class KeyboardComponent {
 
         this.gameService.updateObscuredPassword(response.password);
 
-        if (!response.password.includes('-') && this.gameEnded) {
+        if (!response.password.includes('-')) {
           this.gameService.updateImage("assets/wygrana.jpg");
           this.gameService.endGame();
         } else if (response.wrongGuesses == this.MAX_WRONG_GUESSES) {
