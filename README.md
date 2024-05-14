@@ -1,6 +1,6 @@
 # Wisielec_v3.0 
 
-Jest trzecią wersją gry w wisielca, zaadaptowaną na podstawie wersji v2.0, która była aplikacją desktopową. 
+Jest trzecią wersją gry w wisielca, zaadaptowaną na podstawie wersji v2.0 (https://github.com/bgnatowski/Wisielec_v2), która była aplikacją desktopową. 
 
 ## Wersja 3 - technologie:
   * backend: SpringBoot3 + H2
