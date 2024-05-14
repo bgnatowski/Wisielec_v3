@@ -8,7 +8,7 @@ import {GuessLetterResponse} from "../interface/guess-letter-response"; // Za≈Ç√
   providedIn: 'root'
 })
 export class GameService {
-  private apiUrl = 'http://localhost:8080/api/games/hangman';
+  private apiUrl = '/api/games/hangman';
 
   private obscuredPasswordSubject = new BehaviorSubject<string>('');
   private wrongGuessesSubject = new BehaviorSubject<number>(0);

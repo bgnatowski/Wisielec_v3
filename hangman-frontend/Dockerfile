@@ -1,25 +1,47 @@
-# Stage 1: Build the Angular app
+# Użyj obrazu Node.js
 FROM node:16-alpine AS build
+
+# Ustaw katalog roboczy
 WORKDIR /app
 
-COPY . .
+# Skopiuj package.json i package-lock.json (jeśli istnieje)
+COPY package*.json ./
+
+# Zainstaluj zależności
 RUN npm install
-RUN npm run build
-# Serve Application using Nginx Server
-FROM nginx:alpine
-COPY --from=build /app/dist/frontend/ /usr/share/nginx/html
-EXPOSE 80
+
+# Skopiuj pozostałe pliki źródłowe aplikacji
+COPY . .
+
+# Expose port, na którym aplikacja będzie dostępna
+EXPOSE 4200
+
+# Uruchomienie aplikacji Angular
+CMD ["npm", "start"]
 
 
-## Stage 1
-# Używanie obrazu node specyficznego dla architektury ARM
-#FROM --platform=linux/arm64/v8 node:latest as node
-#WORKDIR /app
-#COPY . .
-#RUN npm install
-#RUN npm run build
+## Stage 1: Build the Angular app
+##FROM node:16-alpine AS build
+##WORKDIR /app
+##
+##COPY . .
+##RUN npm install
+##RUN npm run build
+### Serve Application using Nginx Server
+##FROM nginx:alpine
+##COPY --from=build /app/dist/frontend/ /usr/share/nginx/html
+##EXPOSE 80
 #
-## Stage 2
-## Używanie obrazu nginx specyficznego dla architektury ARM
-#FROM --platform=linux/arm64/v8 nginx:alpine
-#COPY --from=node /app/dist/frontend /usr/share/nginx/html
+#
+## Etap 1: Budowanie aplikacji Angular
+#FROM node:16-alpine as build
+#WORKDIR /app
+#COPY package.json ./
+#COPY package-lock.json ./
+#RUN npm install
+#COPY . .
+#RUN npm run build --prod
+#
+## Etap 2: Serwowanie aplikacji za pomocą NGINX
+#FROM nginx:alpine
+#COPY --from=build /app/dist/frontend /usr/share/nginx/html
